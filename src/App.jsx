@@ -9,9 +9,7 @@ import './App.css'
 function App() {
   const [page, setPage] = useState(1)
   const [selectedLabel, setSelectedLabel] = useState(null);
-
   const { data, isLoading, isFetching, isError, error } = usePRs(page);
-
   const prs = data?.prs || [];
 
   const filteredPRs = selectedLabel
@@ -21,20 +19,24 @@ function App() {
   return (
     <div className="App">
       <h1>GitHub PR Viewer</h1>
-
-      {isLoading && <p>Loading PRs...</p>}
-
+      {isLoading && (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>Loading PRs...</p>
+        </div>
+      )}
       {isError && <ErrorMessage message={error.message} />}
-
       <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
       <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
-      <Pagination
-        page={page}
-        setPage={setPage}
-        hasNextPage={data?.hasNextPage}
-        hasPrevPage={data?.hasPrevPage}
-        isFetching={isFetching}
-      />
+      {!isError && prs.length > 0 && data?.hasNextPage && (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          hasNextPage={data.hasNextPage}
+          hasPrevPage={data.hasPrevPage}
+          isFetching={isFetching}
+        />
+      )}
     </div>
   )
 }
