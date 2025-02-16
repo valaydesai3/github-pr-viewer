@@ -3,6 +3,7 @@ import { usePRs } from './hooks/usePRs';
 import PRList from './components/PRList';
 import Pagination from './components/Pagination';
 import FilterBar from './components/FilterBar';
+import ErrorMessage from './components/ErrorMessage';
 import './App.css'
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
       <h1>GitHub PR Viewer</h1>
 
       {isLoading && <p>Loading PRs...</p>}
-      {isError && <p>Error: {error.message}</p>}
+
+      {isError && <ErrorMessage message={error.message} />}
 
       <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
       <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />

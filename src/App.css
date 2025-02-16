@@ -138,3 +138,32 @@ h1 {
   background: #ccc;
   cursor: not-allowed;
 }
+
+.error-container {
+  background-color: #ffe6e6;
+  color: #cc0000;
+  border: 1px solid #cc0000;
+  padding: 16px;
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.error-container h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #990000;
+}
+
+.error-container code {
+  display: block;
+  background: #fff0f0;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.retry-button:hover {
+  background-color: #990000;
+}
