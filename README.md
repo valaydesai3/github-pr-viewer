@@ -10,7 +10,7 @@ A simple React application to fetch and display GitHub pull requests with filter
 
 ### 2️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-repo/github-pr-viewer.git
+git clone https://github.com/valaydesai3/github-pr-viewer.git
 cd github-pr-viewer
 ```
 ### 3️⃣ Install Dependencies
@@ -38,7 +38,7 @@ npm run test
 npm run lint
 ```
 
-### 🐋 Docker Setup
+### 🐋 Docker Setup (optional)
 ```sh
 docker build -t github-pr-viewer .
 
