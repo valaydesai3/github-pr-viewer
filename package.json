@@ -53,7 +53,8 @@
   "lint-staged": {
     "**/*.{js,jsx}": [
       "eslint .",
-      "prettier --write"
+      "prettier --write",
+      "vitest --run"
     ]
   }
 }
