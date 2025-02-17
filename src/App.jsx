@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { usePRs } from './hooks/usePRs';
 import PRList from './components/PRList';
 import Pagination from './components/Pagination';
@@ -16,6 +16,11 @@ function App() {
     ? prs.filter(pr => pr.labels.some(label => label.name.toLowerCase() === selectedLabel.toLowerCase()))
     : prs;
 
+  const handleClearFilter = () => {
+    setSelectedLabel(null);
+    setPage(1);
+  };
+
   return (
     <div className="App">
       <main role='main'>
@@ -30,9 +35,9 @@ function App() {
         <section>
           {!isLoading && !isError && (
             <>
-              <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
+              <FilterBar selectedLabel={selectedLabel} onClearFilter={handleClearFilter} />
               <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
-              {prs.length > 0 && data?.hasNextPage && (
+              {(prs.length > 0 || hasPrevPage) && (
                 <nav aria-label="Pagination Navigation">
                   <Pagination
                     page={page}
