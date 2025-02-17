@@ -16,11 +16,6 @@ function App() {
     ? prs.filter(pr => pr.labels.some(label => label.name.toLowerCase() === selectedLabel.toLowerCase()))
     : prs;
 
-  const handleClearFilter = () => {
-    setSelectedLabel(null);
-    setPage(1);
-  };
-
   return (
     <div className="App">
       <main role='main'>
@@ -35,9 +30,9 @@ function App() {
         <section>
           {!isLoading && !isError && (
             <>
-              <FilterBar selectedLabel={selectedLabel} onClearFilter={handleClearFilter} />
+              <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
               <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
-              {(prs.length > 0 || hasPrevPage) && (
+              {(prs.length > 0 || hasPrevPage) && !selectedLabel && (
                 <nav aria-label="Pagination Navigation">
                   <Pagination
                     page={page}

@@ -4,11 +4,14 @@ const FilterBar = ({ selectedLabel, onClearFilter }) => {
     return (
         <div className="filter-bar" role="status" aria-live="polite">
             <span>
-                Filtering by: <strong>{selectedLabel}</strong>
+                Filtering by: <span className="filter-badge">{selectedLabel}</span>
             </span>
             <button className="clear-filter" onClick={onClearFilter} aria-label={`Clear filter for ${selectedLabel}`}>
                 ✖ Clear Filter
             </button>
+            <p className="pagination-disabled">
+                Pagination is disabled while filtering. Clear Filter to navigate pages.
+            </p>
         </div>
     );
 };
