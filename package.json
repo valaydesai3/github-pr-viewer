@@ -9,14 +9,15 @@
     "qa": "vite --mode qa",
     "prod": "vite --mode production",
     "serve": "vite preview",
-    "build:dev:remote": "vite build --mode development",
-    "build:dev": "vite build --mode dev",
-    "build:qa": "vite build --mode qa",
+    "build:dev": "vitest --run && vite build --mode development",
+    "build:dev:remote": "vitest --run && vite build --mode dev",
+    "build:qa": "vitest --run && vite build --mode qa",
     "build:prod": "vite build --mode production",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "vitest --run"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.66.0",
