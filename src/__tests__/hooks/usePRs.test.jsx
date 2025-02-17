@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { usePRs } from '../../hooks/usePRs';

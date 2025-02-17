@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import { render, screen, fireEvent } from "@testing-library/react";
 import FilterBar from "../../components/FilterBar";
 

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import PRCard from "./PRCard";
 
 const PRList = ({ pullRequests, setSelectedLabel }) => {
@@ -15,6 +16,11 @@ const PRList = ({ pullRequests, setSelectedLabel }) => {
       ))}
     </div>
   );
+};
+
+PRList.propTypes = {
+  pullRequests: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setSelectedLabel: PropTypes.func.isRequired,
 };
 
 export default PRList;

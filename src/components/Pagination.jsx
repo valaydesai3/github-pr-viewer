@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Pagination = ({ page, setPage, hasNextPage, hasPrevPage, isFetching }) => {
     return (
         <div className="pagination">
@@ -18,6 +20,14 @@ const Pagination = ({ page, setPage, hasNextPage, hasPrevPage, isFetching }) => 
             </button>
         </div>
     );
+};
+
+Pagination.propTypes = {
+    page: PropTypes.number.isRequired,
+    setPage: PropTypes.func.isRequired,
+    hasNextPage: PropTypes.bool.isRequired,
+    hasPrevPage: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
 
 export default Pagination;

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { usePRs } from './hooks/usePRs';
 import PRList from './components/PRList';
 import Pagination from './components/Pagination';
@@ -32,7 +32,7 @@ function App() {
             <>
               <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
               <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
-              {(prs.length > 0 || hasPrevPage) && !selectedLabel && (
+              {(prs.length > 0 || data.hasPrevPage) && !selectedLabel && (
                 <nav aria-label="Pagination Navigation">
                   <Pagination
                     page={page}

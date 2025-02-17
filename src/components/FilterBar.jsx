@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const FilterBar = ({ selectedLabel, onClearFilter }) => {
     if (!selectedLabel) return null; // Don't render if no filter is selected
 
@@ -14,6 +16,11 @@ const FilterBar = ({ selectedLabel, onClearFilter }) => {
             </p>
         </div>
     );
+};
+
+FilterBar.propTypes = {
+    selectedLabel: PropTypes.string,
+    onClearFilter: PropTypes.func.isRequired,
 };
 
 export default FilterBar;

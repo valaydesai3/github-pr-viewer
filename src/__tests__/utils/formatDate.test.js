@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import { formatDate, formatTooltip } from '../../utils/formatDate';
 
 test('formats a date correctly', () => {

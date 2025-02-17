@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { formatDate, formatTooltip } from "../utils/formatDate";
 import { getTextColor } from "../utils/getTextColor";
 
@@ -30,6 +31,25 @@ const PRCard = ({ pr, setSelectedLabel }) => {
       </div>
     </div>
   );
+};
+
+PRCard.propTypes = {
+  pr: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    number: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+    labels: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        color: PropTypes.string.isRequired,
+        description: PropTypes.string,
+      })
+    ).isRequired,
+  }).isRequired,
+  setSelectedLabel: PropTypes.func.isRequired,
 };
 
 export default PRCard;

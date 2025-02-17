@@ -7,6 +7,16 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 export default [
   { ignores: ['dist'] },
   {
+    files: ['vite.config.js'], // Apply Node.js settings only to this file
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node, // Enable Node.js globals
+      },
+    },
+    rules: {},
+  },
+  {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
