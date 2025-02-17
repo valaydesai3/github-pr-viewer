@@ -31,3 +31,8 @@ test('calls onLabelClick when label is clicked', () => {
   expect(onLabelClickMock).toHaveBeenCalledTimes(1);
   expect(onLabelClickMock).toHaveBeenCalledWith('bug');
 });
+
+test('displays "No PRs found" when there are no pull requests', () => {
+  render(<PRList pullRequests={[]} setSelectedLabel={() => {}} />);
+  expect(screen.getByText(/No PRs found/i)).toBeInTheDocument();
+});

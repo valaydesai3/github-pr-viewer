@@ -1,6 +1,13 @@
 import PRCard from "./PRCard";
 
 const PRList = ({ pullRequests, setSelectedLabel }) => {
+  if (!pullRequests.length) {
+    return (
+      <div className="empty-state">
+        <p>No PRs found.</p>
+      </div>
+    );
+  }
   return (
     <div className="pr-list" aria-label="List of Pull Requests">
       {pullRequests.map((pr) => (

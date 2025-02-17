@@ -28,22 +28,24 @@ function App() {
         )}
         {isError && <ErrorMessage message={error.message} role="alert" />}
         <section>
-          <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
+          {!isLoading && !isError && (
+            <>
+              <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
+              <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
+              {prs.length > 0 && data?.hasNextPage && (
+                <nav aria-label="Pagination Navigation">
+                  <Pagination
+                    page={page}
+                    setPage={setPage}
+                    hasNextPage={data.hasNextPage}
+                    hasPrevPage={data.hasPrevPage}
+                    isFetching={isFetching}
+                  />
+                </nav>
+              )}
+            </>
+          )}
         </section>
-        <section>
-          <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
-        </section>
-        {!isError && prs.length > 0 && data?.hasNextPage && (
-          <nav aria-label="Pagination Navigation">
-            <Pagination
-              page={page}
-              setPage={setPage}
-              hasNextPage={data.hasNextPage}
-              hasPrevPage={data.hasPrevPage}
-              isFetching={isFetching}
-            />
-          </nav>
-        )}
       </main>
     </div>
   )
