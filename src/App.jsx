@@ -18,25 +18,33 @@ function App() {
 
   return (
     <div className="App">
-      <h1>GitHub PR Viewer</h1>
-      {isLoading && (
-        <div className="loading-container">
-          <div className="spinner"></div>
-          <p>Loading PRs...</p>
-        </div>
-      )}
-      {isError && <ErrorMessage message={error.message} />}
-      <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
-      <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
-      {!isError && prs.length > 0 && data?.hasNextPage && (
-        <Pagination
-          page={page}
-          setPage={setPage}
-          hasNextPage={data.hasNextPage}
-          hasPrevPage={data.hasPrevPage}
-          isFetching={isFetching}
-        />
-      )}
+      <main role='main'>
+        <h1 tabIndex="0" aria-label="GitHub Pull Request Viewer">GitHub PR Viewer</h1>
+        {isLoading && (
+          <div className="loading-container" role="status" aria-live="polite">
+            <div className="spinner" aria-hidden="true"></div>
+            <p>Loading PRs...</p>
+          </div>
+        )}
+        {isError && <ErrorMessage message={error.message} role="alert" />}
+        <section>
+          <FilterBar selectedLabel={selectedLabel} onClearFilter={() => setSelectedLabel(null)} />
+        </section>
+        <section>
+          <PRList pullRequests={filteredPRs} setSelectedLabel={setSelectedLabel} />
+        </section>
+        {!isError && prs.length > 0 && data?.hasNextPage && (
+          <nav aria-label="Pagination Navigation">
+            <Pagination
+              page={page}
+              setPage={setPage}
+              hasNextPage={data.hasNextPage}
+              hasPrevPage={data.hasPrevPage}
+              isFetching={isFetching}
+            />
+          </nav>
+        )}
+      </main>
     </div>
   )
 }
