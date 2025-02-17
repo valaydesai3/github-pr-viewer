@@ -13,40 +13,63 @@ const mockPR = {
   ],
 };
 
-test('renders PR details correctly', () => {
-  render(<PRCard pr={mockPR} onLabelClick={() => {}} />);
+describe("PRCard Component", () => {
+  test("renders PR details correctly", () => {
+    render(<PRCard pr={mockPR} setSelectedLabel={() => {}} />);
 
-  expect(screen.getByText('Fix authentication issue')).toBeInTheDocument();
-  expect(screen.getByText('#101')).toBeInTheDocument();
-  expect(screen.getByText('by johndoe')).toBeInTheDocument();
-});
+    expect(screen.getByRole("group")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /View details of PR Fix authentication issue/i })).toHaveAttribute(
+      "href",
+      "https://github.com/example/pr/101"
+    );
+    expect(screen.getByText("#101")).toBeInTheDocument();
+    expect(screen.getByText("by johndoe")).toBeInTheDocument();
+  });
 
-test('renders PR labels with correct styles', () => {
-  render(<PRCard pr={mockPR} onLabelClick={() => {}} />);
+  test("renders PR labels with correct styles and accessibility attributes", () => {
+    render(<PRCard pr={mockPR} setSelectedLabel={() => {}} />);
 
-  const bugLabel = screen.getByText('bug');
-  expect(bugLabel).toBeInTheDocument();
-  expect(bugLabel).toHaveStyle({ backgroundColor: '#ff0000' });
+    const bugLabel = screen.getByText("bug");
+    expect(bugLabel).toBeInTheDocument();
+    expect(bugLabel).toHaveStyle({ backgroundColor: "#ff0000" });
+    expect(bugLabel).toHaveAttribute("aria-label", "Filter by label bug");
 
-  const enhancementLabel = screen.getByText('enhancement');
-  expect(enhancementLabel).toBeInTheDocument();
-  expect(enhancementLabel).toHaveStyle({ backgroundColor: '#00ff00' });
-});
+    const enhancementLabel = screen.getByText("enhancement");
+    expect(enhancementLabel).toBeInTheDocument();
+    expect(enhancementLabel).toHaveStyle({ backgroundColor: "#00ff00" });
+    expect(enhancementLabel).toHaveAttribute("aria-label", "Filter by label enhancement");
+  });
 
-test('opens PR link when title is clicked', () => {
-  render(<PRCard pr={mockPR} onLabelClick={() => {}} />);
+  test("opens PR link when title is clicked", () => {
+    render(<PRCard pr={mockPR} setSelectedLabel={() => {}} />);
+    
+    const titleLink = screen.getByRole("link", { name: /View details of PR Fix authentication issue/i });
+    expect(titleLink).toHaveAttribute("href", "https://github.com/example/pr/101");
+  });
 
-  const titleLink = screen.getByText('Fix authentication issue');
-  expect(titleLink.closest('a')).toHaveAttribute('href', 'https://github.com/example/pr/101');
-});
+  test("calls setSelectedLabel when a label is clicked", () => {
+    const setSelectedLabelMock = vi.fn();
+    render(<PRCard pr={mockPR} setSelectedLabel={setSelectedLabelMock} />);
 
-test('calls onLabelClick when a label is clicked', () => {
-  const onLabelClickMock = vi.fn();
-  render(<PRCard pr={mockPR} setSelectedLabel={onLabelClickMock} />);
+    const bugLabel = screen.getByText("bug");
+    fireEvent.click(bugLabel);
 
-  const bugLabel = screen.getByText('bug');
-  fireEvent.click(bugLabel);
+    expect(setSelectedLabelMock).toHaveBeenCalledTimes(1);
+    expect(setSelectedLabelMock).toHaveBeenCalledWith("bug");
+  });
 
-  expect(onLabelClickMock).toHaveBeenCalledTimes(1);
-  expect(onLabelClickMock).toHaveBeenCalledWith('bug');
+  test("ensures PR number and author have correct accessibility labels", () => {
+    render(<PRCard pr={mockPR} setSelectedLabel={() => {}} />);
+
+    expect(screen.getByText("#101")).toHaveAttribute("aria-label", "Pull request number 101");
+    expect(screen.getByText("by johndoe")).toHaveAttribute("aria-label", "Author johndoe");
+  });
+
+  test("ensures PR date tooltip is accessible", () => {
+    render(<PRCard pr={mockPR} setSelectedLabel={() => {}} />);
+
+    const dateElement = screen.getByText(/opened on/i);
+    expect(dateElement).toHaveAttribute("title");
+    expect(dateElement).toHaveAttribute("aria-label");
+  });
 });

@@ -48,6 +48,11 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+.clear-filter::before {
+  content: "\2716";
+  margin-right: 5px;
+}
+
 .clear-filter:hover {
   background: #f6f8fa;
 }

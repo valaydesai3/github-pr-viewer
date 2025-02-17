@@ -9,7 +9,7 @@ const PRList = ({ pullRequests, setSelectedLabel }) => {
     );
   }
   return (
-    <div className="pr-list" aria-label="List of Pull Requests">
+    <div className="pr-list" aria-label="List of Pull Requests" role="list">
       {pullRequests.map((pr) => (
         <PRCard key={pr.id} pr={pr} setSelectedLabel={setSelectedLabel} />
       ))}

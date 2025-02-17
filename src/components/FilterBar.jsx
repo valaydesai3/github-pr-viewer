@@ -7,7 +7,7 @@ const FilterBar = ({ selectedLabel, onClearFilter }) => {
                 Filtering by: <span className="filter-badge">{selectedLabel}</span>
             </span>
             <button className="clear-filter" onClick={onClearFilter} aria-label={`Clear filter for ${selectedLabel}`}>
-                ✖ Clear Filter
+                Clear Filter
             </button>
             <p className="pagination-disabled">
                 Pagination is disabled while filtering. Clear Filter to navigate pages.

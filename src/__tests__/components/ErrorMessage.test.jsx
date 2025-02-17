@@ -6,16 +6,20 @@ describe("ErrorMessage Component", () => {
     const errorMsg = "Network error: Failed to fetch";
     render(<ErrorMessage message={errorMsg} />);
 
-    expect(screen.getByText("Something went wrong")).toBeInTheDocument();
-    expect(screen.getByText("We couldn't fetch the PRs right now. Please try again later.")).toBeInTheDocument();
-    expect(screen.getByText(`Error: ${errorMsg}`)).toBeInTheDocument();
+    const alertBox = screen.getByRole("alert");
+    expect(alertBox).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Something went wrong");
+    expect(alertBox).toHaveTextContent(/We couldn't fetch the PRs right now/i);
+    expect(screen.getByLabelText("Error Details")).toHaveTextContent(`Error: ${errorMsg}`);
   });
 
   test("renders default error message if no message is provided", () => {
     render(<ErrorMessage />);
 
-    expect(screen.getByText("Something went wrong")).toBeInTheDocument();
-    expect(screen.getByText("We couldn't fetch the PRs right now. Please try again later.")).toBeInTheDocument();
-    expect(screen.getByText("Error: Unknown error")).toBeInTheDocument();
+    const alertBox = screen.getByRole("alert");
+    expect(alertBox).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Something went wrong");
+    expect(alertBox).toHaveTextContent(/We couldn't fetch the PRs right now/i);
+    expect(screen.getByLabelText("Error Details")).toHaveTextContent("Error: Unknown error");
   });
 });
